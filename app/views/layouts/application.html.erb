@@ -13,16 +13,11 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container main">
-      <% if notice %>
-          <p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-          <p class="alert alert-danger"><%= alert %></p>
-      <% end %>
       <div class="row">
         <div class="col-md-12">
           <% flash.each do |name, message| %>
-            <div class="alert alert-<%= name %>">
+            <div class="alert <%= bootstrap_class_for(name) %>">
+              <button class="Close" data-dismiss="alert">&times;</button>
               <%= message %>
             </div>
           <% end %>

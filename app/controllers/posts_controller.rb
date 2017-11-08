@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.paginate(page: params[:page], per_page: 5)
   end
 
   def show
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, success: 'Post successfully created'
     else
-      flash[:danger] = 'Post not created'
+      flash.now[:danger] = 'Post not created'
       render :new
     end
   end
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
     if @post.update_attributes(post_params)
       redirect_to @post, success: 'Post successfully updated'
     else
-      flash[:danger] = 'Post not updated'
+      flash.now[:danger] = 'Post not updated'
       render :edit
     end
   end
